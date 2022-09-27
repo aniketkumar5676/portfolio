@@ -89,14 +89,20 @@ public class ChatService implements UserDetailsService {
 
 
     public List<User> findStatus(String status) throws UserNotFound {
-        List<User> userList = userRepo.findAllByStatus(status);
-        if (userList.size()<1)
+
+        if(status.equals("Online")||status.equals("Offline")) {
+
+            List<User> userList = userRepo.findAllByStatus(status);
+            if (userList.size() < 1) {
+                throw new UserNotFound("No Data Found");
+
+            }
+            return userList;
+
+        }else
         {
-            throw new UserNotFound("Enter Correct Status either `Online` or `Offline`");
-
+            throw new UserNotFound("Wrong Data searched, Either Enter `Online` or `Offline`");
         }
-
-        return userList;
     }
 
 
