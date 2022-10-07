@@ -8,6 +8,8 @@ import com.payment.payment.dto.UserCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PaymentService {
 
@@ -16,10 +18,14 @@ public class PaymentService {
     @Autowired
     Response response;
 
+
+
     public Response paymentDone(Payment payment) throws NotFound {
 
 
-        UserCredentials user = userCredRepo.findByUserid(payment.getUserId());
+       UserCredentials user = userCredRepo.findAllByUserid(payment.getUserId());
+
+
         if (user.getBalance() > payment.getPrice()) {
             UserCredentials newuser = UserCredentials.build(user.getSno(), user.getUserid(), user.getBalance() - payment.getPrice());
             userCredRepo.save(newuser);

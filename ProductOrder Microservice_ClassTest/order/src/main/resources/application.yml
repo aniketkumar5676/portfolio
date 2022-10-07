@@ -1,7 +1,7 @@
 server:
-  port: 8081
-spring:
-  application:
-    name: Product
+  port: 8083
 
+spring:
+   application:
+    name: CATALOG
 
